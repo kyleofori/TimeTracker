@@ -15,19 +15,21 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
+        TrackableItem firstItem = new TrackableItem("Roger", 1, 6, "We went to the park and back");
+        TrackableItem secondItem = new TrackableItem("Rager", 1, 3, "We went to the zoo");
+        TrackableItem thirdItem = new TrackableItem("Ruger", 2, 8, "We went to the moon and back");
+
+        TrackableItem[] values = new TrackableItem[] { firstItem, secondItem, thirdItem };
+        TrackableItemArrayAdapter arrayAdapter = new TrackableItemArrayAdapter(this,
+                R.layout.rowlayout, values);
+        setListAdapter(arrayAdapter);
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        String item = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
+        TrackableItem item = (TrackableItem) getListAdapter().getItem(position);
+        String toastText = item.getDescription();
+        Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
     }
 }
