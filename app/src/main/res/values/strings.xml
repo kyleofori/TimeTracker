@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TimeTracker</string>
+    <string name="add_new_item">Add new item</string>
+    <string name="name">Name</string>
+    <string name="level">Level</string>
+    <string name="hours">Hours</string>
+    <string name="description">Description</string>
+    <string name="take_picture">Take a picture of the item!</string>
+    <string name="add_to_list">Add to List</string>
 </resources>

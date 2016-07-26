@@ -1,14 +1,20 @@
-package com.personal.kyleofori.timetracker;
+package com.personal.kyleofori.timetracker.activities;
 
 import android.app.ListActivity;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.personal.kyleofori.timetracker.R;
+import com.personal.kyleofori.timetracker.TrackableItem;
+import com.personal.kyleofori.timetracker.TrackableItemArrayAdapter;
+
 public class MainActivity extends ListActivity {
+
+    private Button addNewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,15 @@ public class MainActivity extends ListActivity {
         TrackableItemArrayAdapter arrayAdapter = new TrackableItemArrayAdapter(this,
                 R.layout.rowlayout, values);
         setListAdapter(arrayAdapter);
+
+        addNewButton = (Button) findViewById(R.id.addNewItemBtn);
+        addNewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, AddItemActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
