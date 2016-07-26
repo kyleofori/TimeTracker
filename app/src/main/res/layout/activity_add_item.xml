@@ -20,8 +20,8 @@
         android:text="@string/level"
         android:textSize="16sp"/>
 
-    <EditText
-        android:id="@+id/level_edt"
+    <Spinner
+        android:id="@+id/level_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -34,7 +34,8 @@
     <EditText
         android:id="@+id/hours_edt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"/>
 
 
     <TextView
@@ -65,5 +66,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_to_list"/>
+
+    <Button
+        android:id="@+id/cancel_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"/>
 
 </LinearLayout>
