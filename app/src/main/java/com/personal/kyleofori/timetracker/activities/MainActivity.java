@@ -1,5 +1,6 @@
 package com.personal.kyleofori.timetracker.activities;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.personal.kyleofori.timetracker.TrackableItemArrayAdapter;
 public class MainActivity extends ListActivity {
 
     private Button addNewButton;
+    public static final int ADD_ITEM = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,17 @@ public class MainActivity extends ListActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, AddItemActivity.class);
-                startActivity(i);
+                startActivityForResult(i, ADD_ITEM);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == ADD_ITEM) {
+            //add item to the list
+        }
     }
 
     @Override
