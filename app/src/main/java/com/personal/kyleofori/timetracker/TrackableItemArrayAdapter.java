@@ -9,11 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
     private Context context;
-    private TrackableItem[] items;
+    private ArrayList<TrackableItem> items;
 
-    public TrackableItemArrayAdapter(Context context, @LayoutRes int resource, TrackableItem[] items) {
+    public TrackableItemArrayAdapter(Context context, @LayoutRes int resource, ArrayList<TrackableItem> items) {
         super(context, resource, items);
         this.context = context;
         this.items = items;
@@ -30,10 +32,10 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
         TextView description = (TextView) rowView.findViewById(R.id.description);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 
-        name.setText(items[position].getName());
-        level.setText(Integer.toString(items[position].getLevel()));
-        hours.setText(Integer.toString(items[position].getHours()));
-        description.setText(items[position].getDescription());
+        name.setText(items.get(position).getName());
+        level.setText(Integer.toString(items.get(position).getLevel()));
+        hours.setText(Integer.toString(items.get(position).getHours()));
+        description.setText(items.get(position).getDescription());
         imageView.setImageResource(R.mipmap.ic_launcher);
 
         return rowView;

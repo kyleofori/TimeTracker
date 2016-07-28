@@ -13,10 +13,14 @@ import com.personal.kyleofori.timetracker.R;
 import com.personal.kyleofori.timetracker.TrackableItem;
 import com.personal.kyleofori.timetracker.TrackableItemArrayAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends ListActivity {
 
-    private Button addNewButton;
     public static final int ADD_ITEM = 1;
+    private Button addNewButton;
+    private TrackableItemArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +32,10 @@ public class MainActivity extends ListActivity {
         TrackableItem thirdItem = new TrackableItem("Ruger", 2, 8, "We went to the moon and back");
 
         TrackableItem[] values = new TrackableItem[] { firstItem, secondItem, thirdItem };
-        TrackableItemArrayAdapter arrayAdapter = new TrackableItemArrayAdapter(this,
-                R.layout.rowlayout, values);
+
+        ArrayList<TrackableItem> valuesList = new ArrayList<>(Arrays.asList(values));
+        arrayAdapter = new TrackableItemArrayAdapter(this,
+                R.layout.rowlayout, valuesList);
         setListAdapter(arrayAdapter);
 
         addNewButton = (Button) findViewById(R.id.addNewItemBtn);
@@ -46,7 +52,13 @@ public class MainActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == ADD_ITEM) {
-            //add item to the list
+            TrackableItem newItem = new TrackableItem(
+                    data.getStringExtra(AddItemActivity.NAME),
+                    data.getIntExtra(AddItemActivity.LEVEL, 1),
+                    data.getIntExtra(AddItemActivity.HOURS, 0),
+                    data.getStringExtra(AddItemActivity.DESCRIPTION));
+            arrayAdapter.add(newItem);
+            arrayAdapter.notifyDataSetChanged();
         }
     }
 
