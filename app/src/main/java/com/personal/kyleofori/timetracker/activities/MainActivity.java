@@ -3,9 +3,12 @@ package com.personal.kyleofori.timetracker.activities;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -13,6 +16,7 @@ import com.personal.kyleofori.timetracker.R;
 import com.personal.kyleofori.timetracker.TrackableItem;
 import com.personal.kyleofori.timetracker.TrackableItemArrayAdapter;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -57,6 +61,20 @@ public class MainActivity extends ListActivity {
                     data.getIntExtra(AddItemActivity.LEVEL, 1),
                     data.getIntExtra(AddItemActivity.HOURS, 0),
                     data.getStringExtra(AddItemActivity.DESCRIPTION));
+            if (data.getStringExtra(AddItemActivity.IMAGE_VIEW) != null) {
+                String filename = data.getStringExtra(AddItemActivity.IMAGE_VIEW);
+                Bitmap bmp;
+                try {
+                    FileInputStream is = this.openFileInput(filename);
+                    bmp = BitmapFactory.decodeStream(is);
+                    ImageView imageViewFromBitmap = new ImageView(MainActivity.this);
+                    imageViewFromBitmap.setImageBitmap(bmp);
+                    newItem.setIcon(imageViewFromBitmap);
+                    is.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             arrayAdapter.add(newItem);
             arrayAdapter.notifyDataSetChanged();
         }

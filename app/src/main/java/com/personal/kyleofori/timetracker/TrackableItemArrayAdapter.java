@@ -36,7 +36,9 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
         level.setText(Integer.toString(items.get(position).getLevel()));
         hours.setText(Integer.toString(items.get(position).getHours()));
         description.setText(items.get(position).getDescription());
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        if(items.get(position).getIcon() != null) {
+            imageView.setImageDrawable(items.get(position).getIcon().getDrawable());
+        }
 
         return rowView;
     }

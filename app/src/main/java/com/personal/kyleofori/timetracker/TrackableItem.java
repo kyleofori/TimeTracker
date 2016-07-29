@@ -3,11 +3,11 @@ package com.personal.kyleofori.timetracker;
 import android.widget.ImageView;
 
 public class TrackableItem {
-    //TODO: include ImageView
     private String name;
     private int level;
     private int hours;
     private String description;
+    private ImageView icon;
 
     public TrackableItem(String name, int level, int hours, String description) {
         this.name = name;
@@ -46,5 +46,13 @@ public class TrackableItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ImageView getIcon() {
+        return icon;
+    }
+
+    public void setIcon(ImageView icon) {
+        this.icon = icon;
     }
 }
