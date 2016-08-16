@@ -26,7 +26,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     public static final String LEVEL = "Level";
     public static final String HOURS = "Hours";
     public static final String DESCRIPTION = "Description";
-    public static final String IMAGE_VIEW = "Image View";
+    public static final String IMAGE_BMP_FILENAME = "Image Bitmap Filename";
     public static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
@@ -110,7 +110,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
                 stream.close();
                 imageBitmap.recycle();
 
-                returnIntent.putExtra(IMAGE_VIEW, filename);
+                returnIntent.putExtra(IMAGE_BMP_FILENAME, filename);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -32,12 +32,13 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
         TextView description = (TextView) rowView.findViewById(R.id.description);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 
-        name.setText(items.get(position).getName());
-        level.setText(Integer.toString(items.get(position).getLevel()));
-        hours.setText(Integer.toString(items.get(position).getHours()));
-        description.setText(items.get(position).getDescription());
-        if(items.get(position).getIcon() != null) {
-            imageView.setImageDrawable(items.get(position).getIcon().getDrawable());
+        TrackableItem item = items.get(position);
+        name.setText(item.getName());
+        level.setText(Integer.toString(item.getLevel()));
+        hours.setText(Integer.toString(item.getHours()));
+        description.setText(item.getDescription());
+        if(item.getBitmap() != null) {
+            imageView.setImageBitmap(item.getBitmap());
         }
 
         return rowView;

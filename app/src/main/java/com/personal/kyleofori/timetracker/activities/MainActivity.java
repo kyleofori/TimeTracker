@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +24,7 @@ import java.util.Arrays;
 public class MainActivity extends ListActivity {
 
     public static final int ADD_ITEM = 1;
+    public static final String VALUES = "values";
     private Button addNewButton;
     private TrackableItemArrayAdapter arrayAdapter;
     private TextView totalHours;
@@ -34,15 +34,21 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TrackableItem firstItem = new TrackableItem("Roger", 1, 6, "We went to the park and back");
-        TrackableItem secondItem = new TrackableItem("Rager", 1, 3, "We went to the zoo");
-        TrackableItem thirdItem = new TrackableItem("Ruger", 2, 8, "We went to the moon and back");
+        if(savedInstanceState != null) {
+            ArrayList<TrackableItem> items = savedInstanceState.getParcelableArrayList(VALUES);
+            arrayAdapter = new TrackableItemArrayAdapter(this, R.layout.rowlayout, items);
+        } else {
+            TrackableItem firstItem = new TrackableItem("Roger", 1, 6, "We went to the park and back");
+            TrackableItem secondItem = new TrackableItem("Rager", 1, 3, "We went to the zoo");
+            TrackableItem thirdItem = new TrackableItem("Ruger", 2, 8, "We went to the moon and back");
 
-        TrackableItem[] values = new TrackableItem[] { firstItem, secondItem, thirdItem };
+            TrackableItem[] values = new TrackableItem[] { firstItem, secondItem, thirdItem };
 
-        ArrayList<TrackableItem> valuesList = new ArrayList<>(Arrays.asList(values));
-        arrayAdapter = new TrackableItemArrayAdapter(this,
-                R.layout.rowlayout, valuesList);
+            ArrayList<TrackableItem> valuesList = new ArrayList<>(Arrays.asList(values));
+
+            arrayAdapter = new TrackableItemArrayAdapter(this,
+                    R.layout.rowlayout, valuesList);
+        }
         setListAdapter(arrayAdapter);
 
         totalHours = (TextView) findViewById(R.id.total_hours_txt);
@@ -92,15 +98,13 @@ public class MainActivity extends ListActivity {
                     data.getIntExtra(AddItemActivity.LEVEL, 1),
                     data.getIntExtra(AddItemActivity.HOURS, 0),
                     data.getStringExtra(AddItemActivity.DESCRIPTION));
-            if (data.getStringExtra(AddItemActivity.IMAGE_VIEW) != null) {
-                String filename = data.getStringExtra(AddItemActivity.IMAGE_VIEW);
+            if (data.getStringExtra(AddItemActivity.IMAGE_BMP_FILENAME) != null) {
+                String filename = data.getStringExtra(AddItemActivity.IMAGE_BMP_FILENAME);
                 Bitmap bmp;
                 try {
                     FileInputStream is = this.openFileInput(filename);
                     bmp = BitmapFactory.decodeStream(is);
-                    ImageView imageViewFromBitmap = new ImageView(MainActivity.this);
-                    imageViewFromBitmap.setImageBitmap(bmp);
-                    newItem.setIcon(imageViewFromBitmap);
+                    newItem.setBitmap(bmp);
                     is.close();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -118,5 +122,15 @@ public class MainActivity extends ListActivity {
         TrackableItem item = (TrackableItem) getListAdapter().getItem(position);
         String toastText = item.getDescription();
         Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<TrackableItem> values = new ArrayList<>();
+        for (int i = 0; i < arrayAdapter.getCount(); i++) {
+            values.add(arrayAdapter.getItem(i));
+        }
+        outState.putParcelableArrayList(VALUES, values);
     }
 }

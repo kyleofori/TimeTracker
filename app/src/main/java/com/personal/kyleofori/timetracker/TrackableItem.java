@@ -1,13 +1,15 @@
 package com.personal.kyleofori.timetracker;
 
-import android.widget.ImageView;
+import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class TrackableItem {
+public class TrackableItem implements Parcelable {
     private String name;
     private int level;
     private int hours;
     private String description;
-    private ImageView icon;
+    private Bitmap bmp;
 
     public TrackableItem(String name, int level, int hours, String description) {
         this.name = name;
@@ -48,11 +50,45 @@ public class TrackableItem {
         this.description = description;
     }
 
-    public ImageView getIcon() {
-        return icon;
+    public Bitmap getBitmap() {
+        return bmp;
     }
 
-    public void setIcon(ImageView icon) {
-        this.icon = icon;
+    public void setBitmap(Bitmap bmp) {
+        this.bmp = bmp;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeInt(this.level);
+        dest.writeInt(this.hours);
+        dest.writeString(this.description);
+        dest.writeParcelable(this.bmp, flags);
+    }
+
+    protected TrackableItem(Parcel in) {
+        this.name = in.readString();
+        this.level = in.readInt();
+        this.hours = in.readInt();
+        this.description = in.readString();
+        this.bmp = in.readParcelable(Bitmap.class.getClassLoader());
+    }
+
+    public static final Creator<TrackableItem> CREATOR = new Creator<TrackableItem>() {
+        @Override
+        public TrackableItem createFromParcel(Parcel source) {
+            return new TrackableItem(source);
+        }
+
+        @Override
+        public TrackableItem[] newArray(int size) {
+            return new TrackableItem[size];
+        }
+    };
 }
