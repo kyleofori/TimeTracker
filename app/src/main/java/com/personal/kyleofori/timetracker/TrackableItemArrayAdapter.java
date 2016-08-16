@@ -35,7 +35,7 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
         TrackableItem item = items.get(position);
         name.setText(item.getName());
         level.setText(Integer.toString(item.getLevel()));
-        hours.setText(Integer.toString(item.getHours()));
+        hours.setText(Double.toString(item.getHours()));
         description.setText(item.getDescription());
         if(item.getBitmap() != null) {
             imageView.setImageBitmap(item.getBitmap());

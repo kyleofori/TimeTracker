@@ -7,11 +7,11 @@ import android.os.Parcelable;
 public class TrackableItem implements Parcelable {
     private String name;
     private int level;
-    private int hours;
+    private double hours;
     private String description;
     private Bitmap bmp;
 
-    public TrackableItem(String name, int level, int hours, String description) {
+    public TrackableItem(String name, int level, double hours, String description) {
         this.name = name;
         this.level = level;
         this.hours = hours;
@@ -34,11 +34,11 @@ public class TrackableItem implements Parcelable {
         this.level = level;
     }
 
-    public int getHours() {
+    public double getHours() {
         return hours;
     }
 
-    public void setHours(int hours) {
+    public void setHours(double hours) {
         this.hours = hours;
     }
 
@@ -67,7 +67,7 @@ public class TrackableItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeInt(this.level);
-        dest.writeInt(this.hours);
+        dest.writeDouble(this.hours);
         dest.writeString(this.description);
         dest.writeParcelable(this.bmp, flags);
     }
@@ -75,7 +75,7 @@ public class TrackableItem implements Parcelable {
     protected TrackableItem(Parcel in) {
         this.name = in.readString();
         this.level = in.readInt();
-        this.hours = in.readInt();
+        this.hours = in.readDouble();
         this.description = in.readString();
         this.bmp = in.readParcelable(Bitmap.class.getClassLoader());
     }

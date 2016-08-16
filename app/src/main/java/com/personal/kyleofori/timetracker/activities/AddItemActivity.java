@@ -99,7 +99,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
         Intent returnIntent = new Intent();
         returnIntent.putExtra(NAME, nameEdt.getText().toString());
         returnIntent.putExtra(LEVEL, Integer.parseInt(levelSpinner.getSelectedItem().toString()));
-        returnIntent.putExtra(HOURS, Integer.parseInt(hoursEdt.getText().toString()));
+        returnIntent.putExtra(HOURS, Double.parseDouble(hoursEdt.getText().toString()));
         returnIntent.putExtra(DESCRIPTION, descriptionEdt.getText().toString());
         if (imageBitmap != null) {
             try {

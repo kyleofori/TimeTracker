@@ -66,26 +66,26 @@ public class MainActivity extends ListActivity {
 
     private void updateTotalHours() {
         Resources res = getResources();
-        int level1 = 0;
-        int level2 = 0;
-        int level3 = 0;
+        double level1Hours = 0;
+        double level2Hours = 0;
+        double level3Hours = 0;
         for(int i=0 ; i < arrayAdapter.getCount() ; i++){
             TrackableItem obj = arrayAdapter.getItem(i);
             switch (obj.getLevel()) {
                 case 1:
-                    level1 += obj.getHours();
+                    level1Hours += obj.getHours();
                     break;
                 case 2:
-                    level2 += obj.getHours();
+                    level2Hours += obj.getHours();
                     break;
                 case 3:
-                    level3 += obj.getHours();
+                    level3Hours += obj.getHours();
                     break;
                 default:
                     break;
             }
         }
-        String text = String.format(res.getString(R.string.hours_summary), level1, level2, level3);
+        String text = String.format(res.getString(R.string.hours_summary), level1Hours, level2Hours, level3Hours);
         totalHours.setText(text);
     }
 
@@ -96,7 +96,7 @@ public class MainActivity extends ListActivity {
             TrackableItem newItem = new TrackableItem(
                     data.getStringExtra(AddItemActivity.NAME),
                     data.getIntExtra(AddItemActivity.LEVEL, 1),
-                    data.getIntExtra(AddItemActivity.HOURS, 0),
+                    data.getDoubleExtra(AddItemActivity.HOURS, 0),
                     data.getStringExtra(AddItemActivity.DESCRIPTION));
             if (data.getStringExtra(AddItemActivity.IMAGE_BMP_FILENAME) != null) {
                 String filename = data.getStringExtra(AddItemActivity.IMAGE_BMP_FILENAME);

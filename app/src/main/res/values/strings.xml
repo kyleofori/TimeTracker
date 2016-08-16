@@ -8,7 +8,7 @@
     <string name="take_picture">Take a picture of the item!</string>
     <string name="add_to_list">Add to List</string>
     <string name="cancel">Cancel</string>
-    <string name="hours_summary">Total Hours:\nLevel 1: %1$d\nLevel 2: %2$d\nLevel 3: %3$d</string>
+    <string name="hours_summary">Total Hours:\nLevel 1: %1$.2f\nLevel 2: %2$.2f\nLevel 3: %3$.2f</string>
     <string-array name="levels_array">
         <item>1</item>
         <item>2</item>
