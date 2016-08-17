@@ -34,7 +34,7 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
 
         TrackableItem item = items.get(position);
         name.setText(item.getName());
-        level.setText(Integer.toString(item.getLevel()));
+        level.setText(convertLevelToCategory(item.getLevel()));
         hours.setText(String.format("%s hours", Double.toString(item.getHours())));
         description.setText(item.getDescription());
         if(item.getBitmap() != null) {
@@ -42,5 +42,13 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
         }
 
         return rowView;
+    }
+
+    private String convertLevelToCategory(int level) {
+        if (level == 3) {
+            return "Uncategorized";
+        } else {
+            return String.format("Category %s", Integer.toString(level));
+        }
     }
 }
