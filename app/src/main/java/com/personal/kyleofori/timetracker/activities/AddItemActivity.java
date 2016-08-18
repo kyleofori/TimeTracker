@@ -1,6 +1,7 @@
 package com.personal.kyleofori.timetracker.activities;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,27 +11,32 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.personal.kyleofori.timetracker.DatePickerFragment;
 import com.personal.kyleofori.timetracker.R;
 
 import java.io.FileOutputStream;
 
-public class AddItemActivity extends Activity implements View.OnClickListener {
+public class AddItemActivity extends Activity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     public static final String NAME = "Name";
     public static final String LEVEL = "Level";
     public static final String HOURS = "Hours";
     public static final String DESCRIPTION = "Description";
     public static final String IMAGE_BMP_FILENAME = "Image Bitmap Filename";
+    public static final String DATE_PICKER = "DatePicker";
     public static final int REQUEST_IMAGE_CAPTURE = 1;
 
-
+    private TextView dateTxt;
     private EditText nameEdt, hoursEdt, descriptionEdt;
+    private Button dateBtn;
     private Spinner levelSpinner;
     private ImageButton takePictureBtn;
     private Button addToListBtn, cancelBtn;
@@ -42,12 +48,15 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
+        dateTxt = (TextView) findViewById(R.id.date_txt);
         nameEdt = (EditText) findViewById(R.id.name_edt);
         hoursEdt = (EditText) findViewById(R.id.hours_edt);
         descriptionEdt = (EditText) findViewById(R.id.description_edt);
         levelSpinner = (Spinner) findViewById(R.id.level_spinner);
         imageView = (ImageView) findViewById(R.id.image_view);
 
+        dateBtn = (Button) findViewById(R.id.date_btn);
+        dateBtn.setOnClickListener(this);
         takePictureBtn = (ImageButton) findViewById(R.id.take_picture_btn);
         takePictureBtn.setOnClickListener(this);
         addToListBtn = (Button) findViewById(R.id.add_to_list_btn);
@@ -64,6 +73,9 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.date_btn:
+                showDatePickerDialog();
+                break;
             case R.id.take_picture_btn:
                 dispatchTakePictureIntent();
                 break;
@@ -83,6 +95,12 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.setOnDateSetListener(this);
+        newFragment.show(getFragmentManager(), DATE_PICKER);
     }
 
     @Override
@@ -133,5 +151,16 @@ public class AddItemActivity extends Activity implements View.OnClickListener {
 
     private String getTextAsStringAndTrim(EditText edt) {
         return edt.getText().toString().trim();
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        String yearString = String.valueOf(year);
+        String monthString = String.valueOf(month + 1);
+        String dayString = String.valueOf(day);
+        String dateString = monthString + "/" + dayString + "/" + yearString;
+        dateTxt.setText(dateString);
+        dateTxt.setVisibility(View.VISIBLE);
+        dateBtn.setText(getString(R.string.reselect_date));
     }
 }

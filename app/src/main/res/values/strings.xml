@@ -9,6 +9,9 @@
     <string name="add_to_list">Add to List</string>
     <string name="cancel">Cancel</string>
     <string name="hours_summary">Total Hours:\nCategory 1: %1$.2f\nCategory 2: %2$.2f\nUncategorized: %3$.2f</string>
+    <string name="date">Date</string>
+    <string name="select_date">Select Date</string>
+    <string name="reselect_date">Reselect Date</string>
     <string-array name="levels_array">
         <item>1</item>
         <item>2</item>
