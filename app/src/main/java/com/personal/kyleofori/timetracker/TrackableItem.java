@@ -6,13 +6,15 @@ import android.os.Parcelable;
 
 public class TrackableItem implements Parcelable {
     private String name;
+    private String date;
     private int level;
     private double hours;
     private String description;
     private Bitmap bmp;
 
-    public TrackableItem(String name, int level, double hours, String description) {
+    public TrackableItem(String name, String date, int level, double hours, String description) {
         this.name = name;
+        this.date = date;
         this.level = level;
         this.hours = hours;
         this.description = description;
@@ -24,6 +26,14 @@ public class TrackableItem implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getLevel() {

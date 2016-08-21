@@ -29,11 +29,13 @@ public class AddItemActivity extends Activity implements View.OnClickListener, D
     public static final String NAME = "Name";
     public static final String LEVEL = "Level";
     public static final String HOURS = "Hours";
+    public static final String DATE = "Date";
     public static final String DESCRIPTION = "Description";
     public static final String IMAGE_BMP_FILENAME = "Image Bitmap Filename";
     public static final String DATE_PICKER = "DatePicker";
     public static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    private String dateString;
     private TextView dateTxt;
     private EditText nameEdt, hoursEdt, descriptionEdt;
     private Button dateBtn;
@@ -117,6 +119,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener, D
         Intent returnIntent = new Intent();
         returnIntent.putExtra(NAME, nameEdt.getText().toString());
         returnIntent.putExtra(LEVEL, Integer.parseInt(levelSpinner.getSelectedItem().toString()));
+        returnIntent.putExtra(DATE, dateString);
         returnIntent.putExtra(HOURS, Double.parseDouble(hoursEdt.getText().toString()));
         returnIntent.putExtra(DESCRIPTION, descriptionEdt.getText().toString());
         if (imageBitmap != null) {
@@ -146,6 +149,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener, D
     private boolean allFieldsFilled() {
         return !TextUtils.isEmpty(getTextAsStringAndTrim(nameEdt)) &&
                 !TextUtils.isEmpty(getTextAsStringAndTrim(hoursEdt)) &&
+                !TextUtils.isEmpty(dateString) &&
                 !TextUtils.isEmpty(getTextAsStringAndTrim(descriptionEdt));
     }
 
@@ -158,7 +162,7 @@ public class AddItemActivity extends Activity implements View.OnClickListener, D
         String yearString = String.valueOf(year);
         String monthString = String.valueOf(month + 1);
         String dayString = String.valueOf(day);
-        String dateString = monthString + "/" + dayString + "/" + yearString;
+        dateString = monthString + "/" + dayString + "/" + yearString;
         dateTxt.setText(dateString);
         dateTxt.setVisibility(View.VISIBLE);
         dateBtn.setText(getString(R.string.reselect_date));

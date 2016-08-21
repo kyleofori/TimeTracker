@@ -38,9 +38,9 @@ public class MainActivity extends ListActivity {
             ArrayList<TrackableItem> items = savedInstanceState.getParcelableArrayList(VALUES);
             arrayAdapter = new TrackableItemArrayAdapter(this, R.layout.rowlayout, items);
         } else {
-            TrackableItem firstItem = new TrackableItem("Roger", 1, 6, "We went to the park and back");
-            TrackableItem secondItem = new TrackableItem("Rager", 1, 3, "We went to the zoo");
-            TrackableItem thirdItem = new TrackableItem("Ruger", 2, 8, "We went to the moon and back");
+            TrackableItem firstItem = new TrackableItem("Roger", "8/6/2016", 1, 6, "We went to the park and back");
+            TrackableItem secondItem = new TrackableItem("Rager", "8/6/2016", 1, 3, "We went to the zoo");
+            TrackableItem thirdItem = new TrackableItem("Ruger", "8/6/2016", 2, 8, "We went to the moon and back");
 
             TrackableItem[] values = new TrackableItem[] { firstItem, secondItem, thirdItem };
 
@@ -95,6 +95,7 @@ public class MainActivity extends ListActivity {
         if (resultCode == Activity.RESULT_OK && requestCode == ADD_ITEM) {
             TrackableItem newItem = new TrackableItem(
                     data.getStringExtra(AddItemActivity.NAME),
+                    data.getStringExtra(AddItemActivity.DATE),
                     data.getIntExtra(AddItemActivity.LEVEL, 1),
                     data.getDoubleExtra(AddItemActivity.HOURS, 0),
                     data.getStringExtra(AddItemActivity.DESCRIPTION));

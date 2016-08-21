@@ -27,6 +27,7 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
         TextView name = (TextView) rowView.findViewById(R.id.name);
+        TextView date = (TextView) rowView.findViewById(R.id.date);
         TextView level = (TextView) rowView.findViewById(R.id.level);
         TextView hours = (TextView) rowView.findViewById(R.id.hours);
         TextView description = (TextView) rowView.findViewById(R.id.description);
@@ -34,6 +35,7 @@ public class TrackableItemArrayAdapter extends ArrayAdapter<TrackableItem> {
 
         TrackableItem item = items.get(position);
         name.setText(item.getName());
+        date.setText(item.getDate());
         level.setText(convertLevelToCategory(item.getLevel()));
         hours.setText(String.format("%s hours", Double.toString(item.getHours())));
         description.setText(item.getDescription());
